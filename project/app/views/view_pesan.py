@@ -28,7 +28,7 @@ def chat_with_rasa(request):
         rasa_url = "http://localhost:5005/webhooks/rest/webhook"
         payload = {"sender": "user", "message": message}
         response = requests.post(rasa_url, json=payload)
-        
+         
         if response.status_code == 200:
             rasa_response = response.json()
             reply = rasa_response[0].get("text") if rasa_response else "Maaf, tidak ada balasan."

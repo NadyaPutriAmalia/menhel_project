@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  Hasil Analisis
+{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+  <!-- TF-IDF Matrix -->
+  <h3 class="mb-3">TF-IDF Matrix</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          {% for feature in feature_names %}
+            <th>{{ feature }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in tfidf_matrix %}
+          <tr>
+            {% for value in row %}
+              <td>{{ value|floatformat:2 }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Cosine Similarity -->
+  <h3 class="mt-5 mb-3">Cosine Similarity Matrix</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          {% for i in cosine_similarity %}
+            <th>{{ forloop.counter }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in cosine_similarity %}
+          <tr>
+            <th>{{ forloop.counter }}</th>
+            {% for value in row %}
+              <td>{{ value|floatformat:3 }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% comment %} <h3 class="mt-5 mb-3">Graph Edges</h3>
+    {% if graph_edges %}
+    <ul class="list-group">
+        {% for edge in graph_edges %}
+        <li class="list-group-item">Dari Kalimat {{ edge.0 }} ke Kalimat {{ edge.1 }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Tidak ada edge untuk ditampilkan.</p>
+    {% endif %} {% endcomment %}
+
+
+  <!-- PageRank Scores -->
+  <h3 class="mt-5 mb-3">PageRank Scores</h3>
+  <ul class="list-group">
+    {% for key, value in pagerank_scores.items %}
+      <li class="list-group-item">Kalimat {{ key }}: {{ value|floatformat:4 }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

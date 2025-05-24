@@ -7,69 +7,76 @@
 {% endblock %}
 
 {% block content %}
-{% comment %} <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Welcome </span> {{request.user.username}}</h4>
-    <div class="row">
-    </div>
-</div> {% endcomment %}
-
 <!-- Content -->
 
   <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Full Editor -->
     <div class="col-12">
-      <div class="card">
-        <h5 class="card-header">Ringkasan Teks</h5>
-        <div class="card-body">
-          <div id="full-editor">
-            <h6>Original</h6>
-            <p>{{ original }}</p>
-            <h6>Hasil Pre Processing</h6>
-            <p>{{ processed }}</p>
-            <h6>Hasil Ringkasan</h6>
-            <p>{{ summary }}</p>
-          </div>
+  <div class="card">
+    <h5 class="card-header">Ringkasan Teks</h5>
+    <div class="card-body">
+
+      <!-- Filter Row: Sesi, Jumlah Kalimat, Tombol Filter -->
+      <div class="row mb-3">
+        <!-- Dropdown Pilih Sesi -->
+        <div class="col-md-5">
+          <label for="sesi" class="form-label">Pilih Sesi</label>
+          <select class="form-select" id="sesi" name="sesi">
+            <option selected disabled>Pilih sesi</option>
+            <option value="1">Sesi 1</option>
+            <option value="2">Sesi 2</option>
+            <option value="3">Sesi 3</option>
+            <option value="4">Sesi 4</option>
+            <option value="5">Sesi 5</option>
+            <option value="6">Sesi 6</option>
+            <option value="7">Sesi 7</option>
+            <option value="8">Sesi 8</option>
+            <option value="9">Sesi 9</option>
+            <option value="10">Sesi 10</option>
+            <option value="11">Sesi 11</option>
+            <option value="12">Sesi 12</option>
+            <option value="13">Sesi 13</option>
+            <option value="14">Sesi 14</option>
+            <option value="15">Sesi 15</option>
+          </select>
+        </div>
+
+        <!-- Dropdown Jumlah Kalimat -->
+        <div class="col-md-5">
+          <label for="jumlah_kalimat" class="form-label">Jumlah Kalimat Ringkasan</label>
+          <select class="form-select" id="jumlah_kalimat" name="jumlah_kalimat">
+            <option selected disabled>Pilih jumlah kalimat</option>
+            <option value="2">2 Kalimat</option>
+            <option value="3">3 Kalimat</option>
+            <option value="4">4 Kalimat</option>
+            <option value="5">5 Kalimat</option>
+            <option value="6">6 Kalimat</option>
+          </select>
+        </div>
+
+        <!-- Tombol Filter -->
+        <div class="col-md-2 d-flex align-items-end justify-content-end">
+          <button type="button" class="btn btn-outline-primary w-100">Filter</button>
         </div>
       </div>
+
+      <!-- Ringkasan -->
+      <div id="full-editor">
+        <h6>Original</h6>
+        <p>{{ original }}</p>
+
+        <h6>Hasil Ringkasan</h6>
+        <p>{{ summary }}</p>
+      </div>
+
+      <!-- Tombol View -->
+      <div class="mt-2 d-flex justify-content-end">
+        <a href="{% url 'analisis' %}" class="btn btn-primary">View</a>
+      </div>
+
     </div>
-    <!-- /Full Editor -->
-
-    <h3>TF-IDF Matrix</h3>
-<table>
-  <thead>
-    <tr>
-      {% for feature in feature_names %}
-        <th>{{ feature }}</th>
-      {% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in tfidf_matrix %}
-      <tr>
-        {% for value in row %}
-          <td>{{ value|floatformat:2 }}</td>
-        {% endfor %}
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-<h3>Cosine Similarity Matrix</h3>
-<pre>{{ cosine_similarity }}</pre>
-
-<h3>Graph Edges</h3>
-<ul>
-  {% for edge in graph_edges %}
-    <li>{{ edge }}</li>
-  {% endfor %}
-</ul>
-
-<h3>PageRank Scores</h3>
-<ul>
-  {% for index, score in pagerank_scores.items %}
-    <li>Kalimat {{ index }}: {{ score|floatformat:4 }}</li>
-  {% endfor %}
-</ul>
+  </div>
+</div>
 
 
     <!-- Overlay -->
@@ -77,6 +84,6 @@
 
     <!-- Drag Target Area To SlideIn Menu On Small Screens -->
     <div class="drag-target"></div>
-  </div>
+</div>
 <!-- / Content -->
 {% endblock %}
